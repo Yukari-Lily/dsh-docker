@@ -1,0 +1,4 @@
+- id: connection
+  config:
+    trustedHosts: !!js ctx.webStartup.trustedHosts
+    cookieMaxAgeDays: 365

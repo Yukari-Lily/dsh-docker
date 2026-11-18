@@ -1,0 +1,31 @@
+services:
+  dsh:
+    image: ghcr.io/yukari-lily/dsh:latest
+    container_name: dsh
+    restart: unless-stopped
+
+    environment:
+      DSH_PUBLIC_URL: https://dsh.example.com/
+      DSH_TRUSTED_HOSTS: dsh.example.com
+      DSH_TELEMETRY_DISABLED: "1"
+      DSH_CHANNEL: rc
+      TZ: Asia/Shanghai
+
+    ports:
+      - "127.0.0.1:3080:3080"
+
+    volumes:
+      - ./data:/data
+      - ./workspace:/workspace
+
+    ulimits:
+      nofile: { soft: 65535, hard: 65535 }
+
+    security_opt:
+      - seccomp=unconfined
+
+    logging:
+      driver: json-file
+      options:
+        max-size: "20m"
+        max-file: "5"
